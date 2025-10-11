@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuidAR | Administración</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg"><text y='0.9em' font-size='90'></text></svg>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="../JS/theme.js"></script>
+</head>
+<body>
+  <div class="container main-feed-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <i class="fas fa-bars menu-icon"></i>
+            <span class="app-name">CuidAR</span>
+        </div>
+        <button id="logout-btn" class="btn-logout" title="Cerrar Sesión">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+    
+    <div class="main-subtitle">
+        <p>Panel de Administración</p>
+    </div>
+    
+    <div class="main-header">
+        <h1>Gestión de Usuarios</h1>
+    </div>
+    
+    <div class="admin-stats-card">
+        <div class="admin-stat-item">
+            <i class="fas fa-users"></i>
+            <div class="admin-stat-content">
+                <h2 id="totalUsers">0</h2>
+                <p>Usuarios Registrados</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-actions">
+        <button class="btn btn-dark-main" id="viewUsersBtn">
+            <span>Ver Lista de Usuarios</span>
+            <i class="fas fa-eye"></i>
+        </button>
+        
+        <button class="btn btn-dark-main" id="downloadExcelBtn">
+            <span>Descargar Excel de Usuarios</span>
+            <i class="fas fa-file-excel"></i>
+        </button>
+        
+        <button class="btn btn-light-main" id="clearDataBtn">
+            <span>Limpiar Todos los Datos</span>
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        
+        <button class="btn btn-light-main" onclick="exitAdmin()">
+            <span>Cerrar Sesión de Admin</span>
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+        
+        <button class="btn btn-light-main" onclick="window.location.href='main.html'">
+            <span>Volver al Inicio</span>
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+    
+    <div class="users-table-container" id="usersTableContainer" style="display: none;">
+        <h3 style="margin: 0 1rem 1rem 1rem;">
+            <i class="fas fa-list"></i> Lista de Usuarios Registrados
+        </h3>
+        <div class="users-table-header">
+            <input type="text" id="searchUsers" placeholder="🔍 Buscar usuario..." class="search-input">
+            <span id="userCount" class="user-count">0 usuarios</span>
+        </div>
+        <div class="table-wrapper">
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Tipo Doc</th>
+                        <th>N° Documento</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Sexo</th>
+                        <th>Edad</th>
+                        <th>EPS</th>
+                        <th>Régimen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+  
+  <nav class="bottom-nav">
+    <a href="main.html"><i class="fas fa-home"></i></a>
+    <a href="asistente.html"><i class="fas fa-search"></i></a>
+    <a href="#"><i class="fas fa-bell"></i></a>
+    <a href="perfil.html" class="nav-user-profile">
+      <i class="fas fa-user" id="navUserIcon"></i>
+      <img id="navUserPhoto" style="display: none;">
+    </a>
+  </nav>
+  
+  <script src="../JS/script.js"></script>
+  <script src="../JS/admin.js"></script>
+  <script>
+    // Protección de acceso al panel de administración
+    (function() {
+      const adminAccess = sessionStorage.getItem('adminAccess');
+      const accessTime = sessionStorage.getItem('adminAccessTime');
+      const currentTime = new Date().getTime();
+      
+      // Verificar si tiene acceso y si no ha expirado (30 minutos)
+      if (!adminAccess || !accessTime || (currentTime - accessTime) > 1800000) {
+        alert('⚠️ Acceso no autorizado. Debe ingresar la contraseña desde la página principal.');
+        window.location.href = 'main.html';
+        return;
+      }
+    })();
+    
+    // Función para cerrar sesión
+    document.getElementById('logout-btn').addEventListener('click', function() {
+      if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        // Limpiar datos de sesión
+        sessionStorage.clear();
+        localStorage.removeItem('currentUser');
+        
+        // Redirigir a la página de login
+        window.location.href = '../index.html';
+      }
+    });
+    
+    // Función para salir del panel de administración
+    function exitAdmin() {
+      if (confirm('¿Deseas salir del panel de administración?')) {
+        sessionStorage.removeItem('adminAccess');
+        sessionStorage.removeItem('adminAccessTime');
+        alert('✅ Has salido del panel de administración');
+        window.location.href = 'main.html';
+      }
+    }
+  </script>
+</body>
+</html>

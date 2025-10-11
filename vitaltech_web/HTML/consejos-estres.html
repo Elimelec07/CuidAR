@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VitalTech | Prevención de Estrés/Ansiedad</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg"><text y='0.9em' font-size='90'></text></svg>">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+  <script src="../JS/theme.js"></script>
+</head>
+<body>
+  <div class="container consejos-detalle-container">
+    <!-- Header -->
+    <div class="consejos-detalle-header">
+        <a href="consejos-prevencion.html" class="back-button">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <h2>Prevención de estrés/ansiedad</h2>
+        <i class="fas fa-shield-alt consejos-shield-icon"></i>
+    </div>
+    
+    <!-- Contenido de consejos -->
+    <div class="consejos-detalle-content">
+        <!-- Card de consejo -->
+        <div class="consejo-card">
+            <div class="consejo-texto">
+                <p>Practica respiración profunda 5 minutos al día.</p>
+            </div>
+            <div class="consejo-ilustracion">
+                <div class="breathing-illustration">
+                    <!-- Perfil de cabeza respirando -->
+                    <svg class="breathing-head" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Cabeza -->
+                        <path class="head-outline" d="M 60 180 Q 60 80, 100 60 Q 140 80, 140 180" 
+                              stroke="#1e293b" 
+                              stroke-width="6" 
+                              fill="none" 
+                              stroke-linecap="round"/>
+                        
+                        <!-- Cuello -->
+                        <line x1="100" y1="180" x2="100" y2="200" 
+                              stroke="#1e293b" 
+                              stroke-width="6" 
+                              stroke-linecap="round"/>
+                        <line x1="85" y1="190" x2="85" y2="200" 
+                              stroke="#1e293b" 
+                              stroke-width="6" 
+                              stroke-linecap="round"/>
+                        
+                        <!-- Nariz -->
+                        <path d="M 60 120 L 50 130 L 55 135" 
+                              stroke="#1e293b" 
+                              stroke-width="5" 
+                              fill="none" 
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                        
+                        <!-- Ondas de respiración animadas -->
+                        <g class="breath-waves">
+                            <path class="wave wave-1" d="M 35 130 Q 25 130, 20 135" 
+                                  stroke="#4dabf7" 
+                                  stroke-width="4" 
+                                  fill="none" 
+                                  stroke-linecap="round"/>
+                            <path class="wave wave-2" d="M 30 145 Q 20 145, 15 150" 
+                                  stroke="#4dabf7" 
+                                  stroke-width="4" 
+                                  fill="none" 
+                                  stroke-linecap="round"/>
+                            <path class="wave wave-3" d="M 35 160 Q 25 160, 20 165" 
+                                  stroke="#4dabf7" 
+                                  stroke-width="4" 
+                                  fill="none" 
+                                  stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Botón para más consejos -->
+        <button class="btn-mas-consejos" id="btnMasConsejos">
+            <span>Ver más consejos</span>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <!-- Lista de consejos adicionales (oculta inicialmente) -->
+        <div class="consejos-lista" id="consejosLista" style="display: none;">
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Practica mindfulness o meditación diariamente durante 10-15 minutos</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Establece una rutina de sueño regular durmiendo 7-8 horas</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Realiza actividad física regular para liberar tensiones</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Limita el consumo de cafeína y alcohol</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Mantén conexiones sociales y comparte tus sentimientos</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Aprende a decir "no" y establece límites saludables</p>
+            </div>
+            <div class="consejo-item">
+                <i class="fas fa-check-circle"></i>
+                <p>Busca ayuda profesional si los síntomas persisten</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <nav class="bottom-nav">
+    <a href="main.html"><i class="fas fa-home"></i></a>
+    <a href="#"><i class="fas fa-search"></i></a>
+    <a href="#"><i class="fas fa-bell"></i></a>
+    <a href="perfil.html" class="nav-user-profile">
+      <i class="fas fa-user" id="navUserIcon"></i>
+      <img id="navUserPhoto" style="display: none;">
+    </a>
+  </nav>
+  
+  <script src="../JS/script.js"></script>
+  <script src="../JS/consejos-estres.js"></script>
+</body>
+</html>

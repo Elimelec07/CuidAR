@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuidAR | Mi Historia Clínica</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg"><text y='0.9em' font-size='90'></text></svg>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+  <script src="../JS/theme.js"></script>
+</head>
+<body>
+  <div class="container historia-container">
+    <!-- Header con título y botón de regreso -->
+    <div class="historia-header">
+        <a href="main.html" class="back-button">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <h2>Mi historia clínica</h2>
+    </div>
+    
+    <!-- Contenido vacío con botón de subir documentos -->
+    <div class="historia-content">
+        <div class="empty-state" id="emptyState">
+            <i class="fi fi-rr-duplicate empty-icon"></i>
+            <p class="empty-text">No hay documentos cargados</p>
+        </div>
+        
+        <!-- Lista de documentos -->
+        <div class="documentos-list" id="documentosList"></div>
+        
+        <!-- Botón de subir documentos -->
+        <input type="file" id="pdfInput" accept=".pdf,application/pdf" style="display: none;" multiple>
+        <button class="btn btn-upload" id="uploadBtn">
+            <span>Subir Documentos</span>
+            <i class="fi fi-rr-cloud-upload"></i>
+        </button>
+    </div>
+  </div>
+  
+  <nav class="bottom-nav">
+    <a href="main.html"><i class="fas fa-home"></i></a>
+    <a href="#"><i class="fas fa-search"></i></a>
+    <a href="#"><i class="fas fa-bell"></i></a>
+    <a href="perfil.html" class="nav-user-profile">
+      <i class="fas fa-user" id="navUserIcon"></i>
+      <img id="navUserPhoto" style="display: none;">
+    </a>
+  </nav>
+  
+  <script src="../JS/script.js"></script>
+</body>
+</html>

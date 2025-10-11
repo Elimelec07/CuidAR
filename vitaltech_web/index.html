@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuidAR | Login</title>
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="stylesheet" href="CSS/style.css">
+  <script src="JS/theme.js"></script>
+</head>
+<body>
+  <div id="terms-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h1>Términos y Condiciones</h1>
+      <div class="terms-text">
+        <p>
+          El aplicativo "CuidAR" es una herramienta diseñada por un grupo de estudiantes de la Universidad del Magdalena,
+          como parte de la garantía del derecho a la salud de toda la población, con el propósito de que todas las personas logren
+          un peso saludable e identifiquen un riesgo potencial de sufrir diabetes, un infarto o una trombosis (accidente cerebrovascular);
+          además de recibir información y recomendaciones específicas para cada nivel de riesgo y se haga uso adecuado y oportuno de los
+          servicios de salud de promoción y prevención como parte de su derecho.
+        </p>
+        <p>
+          Esta herramienta en ningún caso reemplaza la valoración, consulta y recomendaciones médicas, las cuales están bajo
+          responsabilidad de su EPS. La información aquí suministrada está sujeta a las disposiciones establecidas en la Ley 1581 de 2012
+          relativa a la protección de datos personales.
+        </p>
+      </div>
+      <button id="accept-terms-btn" class="btn">Aceptar y Continuar</button>
+    </div>
+  </div>
+
+  <div class="container login-container" id="login-container">
+    <img src="img/robo.jpg" alt="CuidAR Logo" class="logo">
+    <form action="HTML/main.html">
+        <select id="doc-type" name="doc-type" required>
+            <option value="" disabled selected>Tipo de Documento</option>
+            <option value="cc">Cédula de Ciudadanía</option>
+            <option value="ti">Tarjeta de Identidad</option>
+            <option value="ce">Cédula de Extranjería</option>
+        </select>
+        <input type="text" id="doc-number" placeholder="Numero de identificación" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <p class="small-text">
+      ¿No tienes cuenta? <a href="HTML/register.html">Regístrate aquí</a>
+    </p>
+        <button type="submit" class="btn">Continuar</button>
+    </form>
+    <p class="terms">
+      Al hacer clic en continuar, aceptas nuestros <a href="HTML/terminos.html">Términos de servicio</a> y nuestra <a href="HTML/politicas.html">Política de Privacidad</a>.
+    </p>
+  </div>
+  <script src="JS/auth.js"></script>
+</body>
+</html>
+
