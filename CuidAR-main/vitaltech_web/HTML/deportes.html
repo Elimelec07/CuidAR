@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuidAR | Monitor Deportivo</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/sidebar.css">
+  <link rel="stylesheet" href="../CSS/deportes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../JS/theme.js"></script>
+</head>
+<body>
+  <div class="container sports-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <i class="fas fa-bars menu-icon"></i>
+        <span class="app-name">Monitor Deportivo</span>
+      </div>
+      <button id="logout-btn" class="btn-logout" title="Cerrar Sesión">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+
+    <!-- Estado de Conexión Arduino -->
+    <div class="connection-status" id="connectionStatus">
+      <div class="status-indicator">
+        <i class="fas fa-circle" id="statusIcon"></i>
+        <span id="statusText">Desconectado</span>
+      </div>
+      <button class="btn-connect" id="connectBtn">
+        <i class="fas fa-plug"></i> Conectar Dispositivo
+      </button>
+    </div>
+
+    <!-- Tarjetas de Métricas en Tiempo Real -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon heart-rate">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">Frecuencia Cardíaca</span>
+          <span class="metric-value" id="heartRate">-- bpm</span>
+          <span class="metric-status" id="heartRateStatus">Normal</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon temperature">
+          <i class="fas fa-thermometer-half"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">Temperatura Corporal</span>
+          <span class="metric-value" id="temperature">-- °C</span>
+          <span class="metric-status" id="temperatureStatus">Normal</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon oxygen">
+          <i class="fas fa-lungs"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">SpO2 (Oxígeno)</span>
+          <span class="metric-value" id="oxygen">-- %</span>
+          <span class="metric-status" id="oxygenStatus">Normal</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon steps">
+          <i class="fas fa-walking"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">Pasos</span>
+          <span class="metric-value" id="steps">--</span>
+          <span class="metric-status" id="stepsStatus">Meta: 10,000</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon calories">
+          <i class="fas fa-fire"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">Calorías Quemadas</span>
+          <span class="metric-value" id="calories">-- kcal</span>
+          <span class="metric-status" id="caloriesStatus">Hoy</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon distance">
+          <i class="fas fa-route"></i>
+        </div>
+        <div class="metric-info">
+          <span class="metric-label">Distancia</span>
+          <span class="metric-value" id="distance">-- km</span>
+          <span class="metric-status" id="distanceStatus">Total</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfica de Frecuencia Cardíaca -->
+    <div class="chart-container">
+      <div class="chart-header">
+        <h3><i class="fas fa-chart-line"></i> Frecuencia Cardíaca en Tiempo Real</h3>
+        <div class="chart-controls">
+          <button class="btn-chart-control active" data-range="1m">1 min</button>
+          <button class="btn-chart-control" data-range="5m">5 min</button>
+          <button class="btn-chart-control" data-range="15m">15 min</button>
+        </div>
+      </div>
+      <canvas id="heartRateChart"></canvas>
+    </div>
+
+    <!-- Gráfica de Temperatura -->
+    <div class="chart-container">
+      <div class="chart-header">
+        <h3><i class="fas fa-temperature-high"></i> Temperatura Corporal</h3>
+      </div>
+      <canvas id="temperatureChart"></canvas>
+    </div>
+
+    <!-- Estadísticas de Sesión -->
+    <div class="session-stats">
+      <h3><i class="fas fa-stopwatch"></i> Estadísticas de Sesión</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <i class="fas fa-clock"></i>
+          <div class="stat-content">
+            <span class="stat-label">Duración</span>
+            <span class="stat-value" id="sessionDuration">00:00:00</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-heartbeat"></i>
+          <div class="stat-content">
+            <span class="stat-label">FC Promedio</span>
+            <span class="stat-value" id="avgHeartRate">-- bpm</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-arrow-up"></i>
+          <div class="stat-content">
+            <span class="stat-label">FC Máxima</span>
+            <span class="stat-value" id="maxHeartRate">-- bpm</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-arrow-down"></i>
+          <div class="stat-content">
+            <span class="stat-label">FC Mínima</span>
+            <span class="stat-value" id="minHeartRate">-- bpm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zonas de Entrenamiento -->
+    <div class="training-zones">
+      <h3><i class="fas fa-tachometer-alt"></i> Zonas de Entrenamiento</h3>
+      <div class="zones-container">
+        <div class="zone-bar">
+          <div class="zone zone-rest" data-zone="rest">
+            <span class="zone-label">Descanso</span>
+            <span class="zone-range">60-100 bpm</span>
+          </div>
+          <div class="zone zone-warmup" data-zone="warmup">
+            <span class="zone-label">Calentamiento</span>
+            <span class="zone-range">100-120 bpm</span>
+          </div>
+          <div class="zone zone-fat" data-zone="fat">
+            <span class="zone-label">Quema Grasa</span>
+            <span class="zone-range">120-140 bpm</span>
+          </div>
+          <div class="zone zone-cardio" data-zone="cardio">
+            <span class="zone-label">Cardio</span>
+            <span class="zone-range">140-160 bpm</span>
+          </div>
+          <div class="zone zone-peak" data-zone="peak">
+            <span class="zone-label">Máximo</span>
+            <span class="zone-range">160+ bpm</span>
+          </div>
+        </div>
+        <div class="current-zone-indicator" id="zoneIndicator">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+      </div>
+      <div class="zone-info" id="zoneInfo">
+        <p>Conéctate para ver tu zona de entrenamiento actual</p>
+      </div>
+    </div>
+
+    <!-- Controles de Sesión -->
+    <div class="session-controls">
+      <button class="btn-session btn-start" id="startSession">
+        <i class="fas fa-play"></i> Iniciar Sesión
+      </button>
+      <button class="btn-session btn-pause" id="pauseSession" disabled>
+        <i class="fas fa-pause"></i> Pausar
+      </button>
+      <button class="btn-session btn-stop" id="stopSession" disabled>
+        <i class="fas fa-stop"></i> Detener
+      </button>
+    </div>
+
+    <!-- Historial de Entrenamientos -->
+    <div class="workout-history">
+      <div class="history-header">
+        <h3><i class="fas fa-history"></i> Historial de Entrenamientos</h3>
+        <button class="btn-export" id="exportData">
+          <i class="fas fa-download"></i> Exportar Datos
+        </button>
+      </div>
+      <div class="history-list" id="historyList">
+        <!-- Se llenará con JavaScript -->
+      </div>
+    </div>
+
+    <!-- Alertas y Recomendaciones -->
+    <div class="alerts-section" id="alertsSection">
+      <!-- Las alertas aparecerán aquí dinámicamente -->
+    </div>
+  </div>
+
+  <!-- Menú Lateral (Sidebar) -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-header">
+      <img src="../img/logo3.jpg" alt="CuidAR Logo" class="sidebar-logo">
+      <h2>CuidAR</h2>
+      <button class="btn-close-sidebar" id="closeSidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="sidebar-content">
+      <div class="sidebar-section">
+        <h3><i class="fas fa-info-circle"></i> Información</h3>
+        <ul class="sidebar-list">
+          <li><i class="fas fa-check-circle"></i> Monitorea tu actividad física</li>
+          <li><i class="fas fa-check-circle"></i> Controla tus signos vitales</li>
+          <li><i class="fas fa-check-circle"></i> Establece metas diarias</li>
+          <li><i class="fas fa-check-circle"></i> Revisa tu progreso</li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3><i class="fas fa-question-circle"></i> ¿Cómo conectar?</h3>
+        <ol class="sidebar-instructions">
+          <li>Enciende tu banda Arduino</li>
+          <li>Activa el Bluetooth</li>
+          <li>Haz clic en "Conectar Dispositivo"</li>
+          <li>Selecciona tu dispositivo</li>
+          <li>¡Comienza a entrenar!</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="sidebar-footer">
+      <p>&copy; 2025 CuidAR Sports. Todos los derechos reservados.</p>
+    </div>
+  </div>
+
+  <!-- Overlay para el sidebar -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Barra de navegación inferior -->
+  <nav class="bottom-nav">
+    <a href="main.html" title="Inicio"><i class="fas fa-home"></i></a>
+    <a href="deportes.html" class="active" title="Deportes"><i class="fas fa-running"></i></a>
+    <a href="asistente.html" title="Buscar"><i class="fas fa-search"></i></a>
+    <a href="#" id="notificationsBtn" title="Notificaciones">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+    </a>
+    <a href="perfil.html" title="Perfil"><i class="fas fa-user"></i></a>
+  </nav>
+
+  <script src="../JS/script.js"></script>
+  <script src="../JS/deportes.js"></script>
+</body>
+</html>

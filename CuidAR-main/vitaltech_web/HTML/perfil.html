@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuidAR | Mi Perfil</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg"><text y='0.9em' font-size='90'></text></svg>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/settings.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+  <script src="../JS/theme.js"></script>
+</head>
+<body>
+  <div class="container perfil-container">
+    <!-- Header -->
+    <div class="perfil-header">
+        <i class="fas fa-bars menu-icon"></i>
+        <h2>My account</h2>
+    </div>
+    
+    <!-- Badge de Perfil -->
+    <div class="perfil-badge">
+        <span>Perfil</span>
+    </div>
+    
+    <!-- Foto de perfil -->
+    <div class="perfil-photo-section">
+        <div class="perfil-photo" id="profilePhoto">
+            <i class="fas fa-user" id="defaultIcon"></i>
+            <img id="profileImage" style="display: none;">
+            <div class="photo-overlay">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+        <h3 class="perfil-name" id="profileName">Nombre de Usuario</h3>
+        <button class="btn-edit-name" id="editNameBtn">
+            <i class="fas fa-pencil-alt"></i>
+        </button>
+    </div>
+    
+    <!-- Información del perfil -->
+    <div class="perfil-info">
+        <div class="perfil-item">
+            <label>Correo Electrónico</label>
+            <div class="perfil-value-wrapper">
+                <p id="emailValue" class="perfil-value"></p>
+                <input type="email" id="emailInput" class="perfil-input perfil-input-hidden">
+                <button class="btn-edit-field" data-field="email" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Teléfono</label>
+            <div class="perfil-value-wrapper">
+                <p id="telefonoValue" class="perfil-value"></p>
+                <input type="tel" id="telefonoInput" class="perfil-input perfil-input-hidden">
+                <button class="btn-edit-field" data-field="telefono" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Tipo de Documento</label>
+            <div class="perfil-value-wrapper">
+                <p id="tipoDocumentoValue" class="perfil-value"></p>
+                <select id="tipoDocumentoInput" class="perfil-input perfil-input-hidden">
+                    <option value="cc">Cédula de Ciudadanía</option>
+                    <option value="ti">Tarjeta de Identidad</option>
+                    <option value="ce">Cédula de Extranjería</option>
+                    <option value="pasaporte">Pasaporte</option>
+                </select>
+                <button class="btn-edit-field" data-field="tipoDocumento" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Número de Documento</label>
+            <div class="perfil-value-wrapper">
+                <p id="numeroDocumentoValue"></p>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Sexo</label>
+            <div class="perfil-value-wrapper">
+                <p id="sexoValue" class="perfil-value">Femenino</p>
+                <select id="sexoInput" class="perfil-input perfil-input-hidden">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+                <button class="btn-edit-field" data-field="sexo" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Fecha de Nacimiento</label>
+            <div class="perfil-value-wrapper">
+                <p id="fechaNacimientoValue" class="perfil-value"></p>
+                <input type="date" id="fechaNacimientoInput" class="perfil-input perfil-input-hidden">
+                <button class="btn-edit-field" data-field="fechaNacimiento" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Edad</label>
+            <div class="perfil-value-wrapper">
+                <p id="edadValue">22</p>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>EPS</label>
+            <div class="perfil-value-wrapper">
+                <p id="epsValue" class="perfil-value"></p>
+                <input type="text" id="epsInput" class="perfil-input perfil-input-hidden">
+                <button class="btn-edit-field" data-field="eps" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Régimen de Salud</label>
+            <div class="perfil-value-wrapper">
+                <p id="regimenValue" class="perfil-value"></p>
+                <select id="regimenInput" class="perfil-input perfil-input-hidden">
+                    <option value="contributivo">Contributivo</option>
+                    <option value="subsidiado">Subsidiado</option>
+                    <option value="especial">Especial</option>
+                </select>
+                <button class="btn-edit-field" data-field="regimen" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Estatura (cm)</label>
+            <div class="perfil-value-wrapper">
+                <p id="estaturaValue" class="perfil-value"></p>
+                <input type="number" id="estaturaInput" class="perfil-input perfil-input-hidden" step="0.01" placeholder="Ej: 170">
+                <button class="btn-edit-field" data-field="estatura" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Peso (kg)</label>
+            <div class="perfil-value-wrapper">
+                <p id="pesoValue" class="perfil-value"></p>
+                <input type="number" id="pesoInput" class="perfil-input perfil-input-hidden" step="0.1" placeholder="Ej: 65">
+                <button class="btn-edit-field" data-field="peso" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="perfil-item">
+            <label>Antecedentes familiares</label>
+            <div class="perfil-value-wrapper">
+                <p id="antecedentesValue" class="perfil-value"></p>
+                <textarea id="antecedentesInput" class="perfil-input perfil-input-hidden" rows="3" placeholder="Describe antecedentes médicos familiares"></textarea>
+                <button class="btn-edit-field" data-field="antecedentes" type="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Menú de Configuración -->
+  <div class="settings-menu" id="settingsMenu">
+    <div class="settings-header">
+      <h2><i class="fas fa-cog"></i> Configuración</h2>
+      <button class="btn-close-settings" id="closeSettings">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="settings-content">
+      <!-- Tema de la App -->
+      <div class="settings-section">
+        <h3><i class="fas fa-palette"></i> Apariencia</h3>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label for="themeToggle">Tema Oscuro</label>
+            <span class="settings-description">Activa el modo oscuro para reducir la fatiga visual</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Notificaciones -->
+      <div class="settings-section">
+        <h3><i class="fas fa-bell"></i> Notificaciones</h3>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label for="notifEnabled">Activar notificaciones</label>
+            <span class="settings-description">Recibe alertas sobre tu salud</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="notifEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label for="dailyTips">Consejos diarios</label>
+            <span class="settings-description">Recibe un consejo de salud cada día</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="dailyTips" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Privacidad -->
+      <div class="settings-section">
+        <h3><i class="fas fa-shield-alt"></i> Privacidad y Seguridad</h3>
+        <div class="settings-item clickable" onclick="window.location.href='politicas.html'">
+          <div class="settings-item-info">
+            <label>Política de Privacidad</label>
+            <span class="settings-description">Lee nuestra política de privacidad</span>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="settings-item clickable" onclick="window.location.href='terminos.html'">
+          <div class="settings-item-info">
+            <label>Términos y Condiciones</label>
+            <span class="settings-description">Consulta los términos de uso</span>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      
+      <!-- Tamaño de Fuente -->
+      <div class="settings-section">
+        <h3><i class="fas fa-text-height"></i> Accesibilidad</h3>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label for="fontSize">Tamaño de fuente</label>
+            <span class="settings-description">Ajusta el tamaño del texto</span>
+          </div>
+          <select id="fontSize" class="settings-select">
+            <option value="small">Pequeño</option>
+            <option value="medium" selected>Mediano</option>
+            <option value="large">Grande</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Idioma -->
+      <div class="settings-section">
+        <h3><i class="fas fa-language"></i> Idioma</h3>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label for="language">Idioma de la aplicación</label>
+            <span class="settings-description">Selecciona tu idioma preferido</span>
+          </div>
+          <select id="language" class="settings-select">
+            <option value="es" selected>Español</option>
+            <option value="en">English</option>
+            <option value="pt">wayuunaiki</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Cuenta -->
+      <div class="settings-section">
+        <h3><i class="fas fa-user-cog"></i> Cuenta</h3>
+        <div class="settings-item clickable" onclick="changePassword()">
+          <div class="settings-item-info">
+            <label>Cambiar contraseña</label>
+            <span class="settings-description">Actualiza tu contraseña</span>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="settings-item clickable" onclick="clearCache()">
+          <div class="settings-item-info">
+            <label>Limpiar caché</label>
+            <span class="settings-description">Elimina datos temporales</span>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="settings-item clickable danger" onclick="deleteAccount()">
+          <div class="settings-item-info">
+            <label>Eliminar cuenta</label>
+            <span class="settings-description">Elimina permanentemente tu cuenta</span>
+          </div>
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      
+      <!-- Acerca de -->
+      <div class="settings-section">
+        <h3><i class="fas fa-info-circle"></i> Acerca de</h3>
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <label>Versión de la aplicación</label>
+            <span class="settings-description">v2.0.1 (11 Oct 2025)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay para el menú de configuración -->
+  <div class="settings-overlay" id="settingsOverlay"></div>
+  
+  <nav class="bottom-nav">
+    <a href="main.html"><i class="fas fa-home"></i></a>
+    <a href="asistente.html"><i class="fas fa-search"></i></a>
+    <a href="#" class="active nav-user-profile">
+      <i class="fas fa-user" id="navUserIcon"></i>
+      <img id="navUserPhoto" style="display: none;">
+    </a>
+  </nav>
+  
+  <script src="../JS/script.js"></script>
+  <script>
+    // Cargar datos del usuario desde localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        // Si no hay usuario, redirigir al login
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      // Función para formatear tipo de documento
+      function formatTipoDocumento(tipo) {
+        const tipos = {
+          'cc': 'Cédula de Ciudadanía',
+          'ti': 'Tarjeta de Identidad',
+          'ce': 'Cédula de Extranjería',
+          'pasaporte': 'Pasaporte'
+        };
+        return tipos[tipo] || tipo;
+      }
+      
+      // Función para calcular edad
+      function calcularEdad(fechaNacimiento) {
+        if (!fechaNacimiento) return '';
+        const birthDate = new Date(fechaNacimiento);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        return age;
+      }
+      
+      // Cargar todos los datos del usuario
+      document.getElementById('profileName').textContent = 
+        `${currentUser.nombres || ''} ${currentUser.apellidos || ''}`.trim() || 'Nombre de Usuario';
+      
+      // Datos del registro
+      document.getElementById('emailValue').textContent = currentUser.email || '';
+      document.getElementById('emailInput').value = currentUser.email || '';
+      
+      document.getElementById('telefonoValue').textContent = currentUser.telefono || '';
+      document.getElementById('telefonoInput').value = currentUser.telefono || '';
+      
+      document.getElementById('tipoDocumentoValue').textContent = formatTipoDocumento(currentUser.tipoDocumento || '');
+      document.getElementById('tipoDocumentoInput').value = currentUser.tipoDocumento || '';
+      
+      document.getElementById('numeroDocumentoValue').textContent = currentUser.numeroDocumento || '';
+      
+      document.getElementById('sexoValue').textContent = 
+        currentUser.sexo ? currentUser.sexo.charAt(0).toUpperCase() + currentUser.sexo.slice(1) : '';
+      document.getElementById('sexoInput').value = currentUser.sexo || '';
+      
+      if (currentUser.fechaNacimiento) {
+        const fecha = new Date(currentUser.fechaNacimiento);
+        document.getElementById('fechaNacimientoValue').textContent = 
+          fecha.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('fechaNacimientoInput').value = currentUser.fechaNacimiento;
+        document.getElementById('edadValue').textContent = calcularEdad(currentUser.fechaNacimiento) + ' años';
+      }
+      
+      document.getElementById('epsValue').textContent = currentUser.eps || '';
+      document.getElementById('epsInput').value = currentUser.eps || '';
+      
+      document.getElementById('regimenValue').textContent = 
+        currentUser.regimen ? currentUser.regimen.charAt(0).toUpperCase() + currentUser.regimen.slice(1) : '';
+      document.getElementById('regimenInput').value = currentUser.regimen || '';
+      
+      // Campos adicionales (pueden estar vacíos)
+      document.getElementById('estaturaValue').textContent = currentUser.estatura ? currentUser.estatura + ' cm' : '';
+      document.getElementById('estaturaInput').value = currentUser.estatura || '';
+      
+      document.getElementById('pesoValue').textContent = currentUser.peso ? currentUser.peso + ' kg' : '';
+      document.getElementById('pesoInput').value = currentUser.peso || '';
+      
+      document.getElementById('antecedentesValue').textContent = currentUser.antecedentes || '';
+      document.getElementById('antecedentesInput').value = currentUser.antecedentes || '';
+      
+      // Funcionalidad de edición de campos
+      const editButtons = document.querySelectorAll('.btn-edit-field');
+      console.log('Botones de edición encontrados:', editButtons.length);
+      
+      editButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const field = this.getAttribute('data-field');
+          console.log('Campo a editar:', field);
+          
+          const valueElement = document.getElementById(`${field}Value`);
+          const inputElement = document.getElementById(`${field}Input`);
+          
+          console.log('Value Element:', valueElement);
+          console.log('Input Element:', inputElement);
+          
+          if (!valueElement || !inputElement) {
+            console.error('Elementos no encontrados para el campo:', field);
+            return;
+          }
+          
+          // Verificar si está en modo edición
+          const isEditing = inputElement.classList.contains('perfil-input-visible');
+          console.log('¿Está editando?', isEditing);
+          
+          if (!isEditing) {
+            // Modo edición: Mostrar input
+            console.log('Activando modo edición');
+            valueElement.classList.remove('perfil-value');
+            valueElement.classList.add('perfil-value-hidden');
+            inputElement.classList.remove('perfil-input-hidden');
+            inputElement.classList.add('perfil-input-visible');
+            inputElement.focus();
+            this.innerHTML = '<i class="fas fa-check"></i>';
+            this.classList.add('btn-save');
+            this.style.color = '#4caf50';
+          } else {
+            // Guardar cambio
+            console.log('Guardando cambios');
+            let newValue = inputElement.value;
+            console.log('Nuevo valor:', newValue);
+            
+            // Formatear y guardar según el campo
+            switch(field) {
+              case 'email':
+                currentUser.email = newValue;
+                valueElement.textContent = newValue;
+                break;
+              case 'telefono':
+                currentUser.telefono = newValue;
+                valueElement.textContent = newValue;
+                break;
+              case 'tipoDocumento':
+                currentUser.tipoDocumento = newValue;
+                valueElement.textContent = formatTipoDocumento(newValue);
+                break;
+              case 'sexo':
+                currentUser.sexo = newValue;
+                valueElement.textContent = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+                break;
+              case 'fechaNacimiento':
+                currentUser.fechaNacimiento = newValue;
+                const fecha = new Date(newValue);
+                valueElement.textContent = fecha.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+                document.getElementById('edadValue').textContent = calcularEdad(newValue) + ' años';
+                break;
+              case 'eps':
+                currentUser.eps = newValue;
+                valueElement.textContent = newValue;
+                break;
+              case 'regimen':
+                currentUser.regimen = newValue;
+                valueElement.textContent = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+                break;
+              case 'estatura':
+                currentUser.estatura = newValue;
+                valueElement.textContent = newValue ? newValue + ' cm' : '';
+                break;
+              case 'peso':
+                currentUser.peso = newValue;
+                valueElement.textContent = newValue ? newValue + ' kg' : '';
+                break;
+              case 'antecedentes':
+                currentUser.antecedentes = newValue;
+                valueElement.textContent = newValue;
+                break;
+            }
+            
+            valueElement.classList.remove('perfil-value-hidden');
+            valueElement.classList.add('perfil-value');
+            inputElement.classList.remove('perfil-input-visible');
+            inputElement.classList.add('perfil-input-hidden');
+            this.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+            this.classList.remove('btn-save');
+            this.style.color = '';
+            
+            // Guardar en localStorage
+            console.log('Guardando en localStorage...');
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // También actualizar en el registro de usuario
+            localStorage.setItem(`user_${currentUser.numeroDocumento}`, JSON.stringify(currentUser));
+            
+            console.log('✅ Datos guardados');
+            alert('✅ Cambios guardados correctamente');
+          }
+        });
+      });
+      
+      // Funcionalidad de edición de nombre
+      document.getElementById('editNameBtn').addEventListener('click', function() {
+        const nombreCompleto = `${currentUser.nombres || ''} ${currentUser.apellidos || ''}`.trim();
+        const newName = prompt('Ingrese su nombre completo:', nombreCompleto);
+        if (newName && newName.trim() !== '') {
+          const partes = newName.trim().split(' ');
+          if (partes.length >= 2) {
+            currentUser.nombres = partes.slice(0, -1).join(' ');
+            currentUser.apellidos = partes[partes.length - 1];
+          } else {
+            currentUser.nombres = partes[0];
+            currentUser.apellidos = '';
+          }
+          document.getElementById('profileName').textContent = newName.trim();
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          localStorage.setItem(`user_${currentUser.numeroDocumento}`, JSON.stringify(currentUser));
+          alert('✅ Nombre actualizado correctamente');
+        }
+      });
+      
+      // Funcionalidad de cambio de foto
+      document.getElementById('profilePhoto').addEventListener('click', function() {
+        document.getElementById('photoInput').click();
+      });
+      
+      document.getElementById('photoInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            document.getElementById('defaultIcon').style.display = 'none';
+            const img = document.getElementById('profileImage');
+            img.src = event.target.result;
+            img.style.display = 'block';
+            
+            // Guardar en localStorage
+            currentUser.profilePhoto = event.target.result;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem(`user_${currentUser.numeroDocumento}`, JSON.stringify(currentUser));
+            alert('✅ Foto de perfil actualizada');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      // Cargar foto si existe
+      if (currentUser.profilePhoto) {
+        document.getElementById('defaultIcon').style.display = 'none';
+        const img = document.getElementById('profileImage');
+        img.src = currentUser.profilePhoto;
+        img.style.display = 'block';
+      }
+      
+      // ===== MENÚ DE CONFIGURACIÓN =====
+      const menuIcon = document.querySelector('.menu-icon');
+      const settingsMenu = document.getElementById('settingsMenu');
+      const settingsOverlay = document.getElementById('settingsOverlay');
+      const closeSettings = document.getElementById('closeSettings');
+      
+      // Abrir menú de configuración
+      if (menuIcon) {
+        menuIcon.addEventListener('click', function() {
+          console.log('⚙️ Abriendo configuración');
+          settingsMenu.classList.add('active');
+          settingsOverlay.classList.add('active');
+        });
+      }
+      
+      // Cerrar menú
+      if (closeSettings) {
+        closeSettings.addEventListener('click', function() {
+          settingsMenu.classList.remove('active');
+          settingsOverlay.classList.remove('active');
+        });
+      }
+      
+      if (settingsOverlay) {
+        settingsOverlay.addEventListener('click', function() {
+          settingsMenu.classList.remove('active');
+          settingsOverlay.classList.remove('active');
+        });
+      }
+      
+      // ===== CONFIGURACIÓN DE TEMA =====
+      const themeToggle = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('appTheme') || 'light';
+      
+      // Aplicar tema guardado
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeToggle.checked = true;
+      }
+      
+      // Cambiar tema
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          document.body.classList.add('dark-theme');
+          localStorage.setItem('appTheme', 'dark');
+          console.log('🌙 Tema oscuro activado');
+        } else {
+          document.body.classList.remove('dark-theme');
+          localStorage.setItem('appTheme', 'light');
+          console.log('☀️ Tema claro activado');
+        }
+      });
+      
+      // ===== CONFIGURACIÓN DE TAMAÑO DE FUENTE =====
+      const fontSizeSelect = document.getElementById('fontSize');
+      const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+      
+      // Aplicar tamaño guardado
+      document.body.classList.remove('font-small', 'font-medium', 'font-large');
+      document.body.classList.add(`font-${savedFontSize}`);
+      fontSizeSelect.value = savedFontSize;
+      
+      fontSizeSelect.addEventListener('change', function() {
+        const size = this.value;
+        document.body.classList.remove('font-small', 'font-medium', 'font-large');
+        document.body.classList.add(`font-${size}`);
+        localStorage.setItem('fontSize', size);
+        console.log(`📏 Tamaño de fuente: ${size}`);
+      });
+      
+      // ===== CONFIGURACIÓN DE IDIOMA =====
+      const languageSelect = document.getElementById('language');
+      const savedLanguage = localStorage.getItem('appLanguage') || 'es';
+      languageSelect.value = savedLanguage;
+      
+      languageSelect.addEventListener('change', function() {
+        const lang = this.value;
+        localStorage.setItem('appLanguage', lang);
+        alert(`Idioma cambiado a: ${lang === 'es' ? 'Español' : lang === 'en' ? 'English' : 'Português'}\n\nEsta función estará disponible en una próxima actualización.`);
+        console.log(`🌐 Idioma: ${lang}`);
+      });
+      
+      // ===== CONFIGURACIÓN DE NOTIFICACIONES =====
+      const notifEnabled = document.getElementById('notifEnabled');
+      const dailyTips = document.getElementById('dailyTips');
+      
+      // Cargar configuración guardada
+      const notifSettings = JSON.parse(localStorage.getItem('notificationSettings') || '{"enabled": true, "dailyTips": true}');
+      notifEnabled.checked = notifSettings.enabled;
+      dailyTips.checked = notifSettings.dailyTips;
+      
+      notifEnabled.addEventListener('change', function() {
+        notifSettings.enabled = this.checked;
+        localStorage.setItem('notificationSettings', JSON.stringify(notifSettings));
+        console.log(`🔔 Notificaciones: ${this.checked ? 'Activadas' : 'Desactivadas'}`);
+      });
+      
+      dailyTips.addEventListener('change', function() {
+        notifSettings.dailyTips = this.checked;
+        localStorage.setItem('notificationSettings', JSON.stringify(notifSettings));
+        console.log(`💡 Consejos diarios: ${this.checked ? 'Activados' : 'Desactivados'}`);
+      });
+    });
+    
+    // ===== FUNCIONES DE CUENTA =====
+    function changePassword() {
+      alert('⚠️ Función de cambio de contraseña\n\nEsta función estará disponible en una próxima actualización.\n\nPor ahora, si olvidaste tu contraseña, contacta al administrador.');
+    }
+    
+    function clearCache() {
+      if (confirm('🗑️ ¿Limpiar caché?\n\n¿Estás seguro de que deseas limpiar los datos temporales?\n\nEsto puede mejorar el rendimiento de la aplicación.')) {
+        // Mantener datos importantes
+        const currentUser = localStorage.getItem('currentUser');
+        const userKeys = Object.keys(localStorage).filter(key => key.startsWith('user_'));
+        const savedData = {};
+        
+        userKeys.forEach(key => {
+          savedData[key] = localStorage.getItem(key);
+        });
+        
+        // Limpiar y restaurar
+        localStorage.clear();
+        localStorage.setItem('currentUser', currentUser);
+        Object.keys(savedData).forEach(key => {
+          localStorage.setItem(key, savedData[key]);
+        });
+        
+        alert('✅ Caché limpiado exitosamente');
+      }
+    }
+    
+    function deleteAccount() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        alert('❌ No se encontró usuario activo');
+        return;
+      }
+      
+      const confirmacion1 = confirm(
+        `⚠️ ELIMINAR CUENTA\n\n` +
+        `¿Estás seguro de que deseas eliminar tu cuenta?\n\n` +
+        `Esta acción es PERMANENTE y eliminará:\n` +
+        `• Todos tus datos personales\n` +
+        `• Resultados de tests\n` +
+        `• Historias clínicas\n` +
+        `• Notificaciones\n\n` +
+        `No podrás recuperar esta información.`
+      );
+      
+      if (!confirmacion1) return;
+      
+      const confirmacion2 = prompt(
+        `Para confirmar, escribe tu número de documento:\n${currentUser.numeroDocumento}`
+      );
+      
+      if (confirmacion2 === currentUser.numeroDocumento) {
+        // Eliminar todos los datos del usuario
+        const numeroDoc = currentUser.numeroDocumento;
+        localStorage.removeItem(`user_${numeroDoc}`);
+        localStorage.removeItem(`profilePhoto_${numeroDoc}`);
+        localStorage.removeItem(`notifications_${numeroDoc}`);
+        localStorage.removeItem(`lastDailyNotification_${numeroDoc}`);
+        localStorage.removeItem(`testDiabetesResultado_${numeroDoc}`);
+        localStorage.removeItem(`testHTAResultado_${numeroDoc}`);
+        localStorage.removeItem(`testPsicologicoResultado_${numeroDoc}`);
+        localStorage.removeItem(`testAnsiedadResultado_${numeroDoc}`);
+        localStorage.removeItem(`historiaClinicaPDFs_${numeroDoc}`);
+        localStorage.removeItem('currentUser');
+        
+        alert('✅ Cuenta eliminada exitosamente.\n\nSerás redirigido al inicio.');
+        window.location.href = 'index.html';
+      } else {
+        alert('❌ Número de documento incorrecto. Cancelado.');
+      }
+    }
+  </script>
+</body>
+</html>
+
